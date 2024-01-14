@@ -1,28 +1,26 @@
 #include "binary_trees.h"
 
-
 /**
  * _binary_tree_height - local function.
  * @tree: A pointer to the root node of the tree to check.
  * 
- * Return: Data.
+ * Return: Height of the tree.
  */
 size_t _binary_tree_height(const binary_tree_t *tree)
 {
-        int r_height, l_height;
+    if (!tree)
+        return (0);
 
-        if (!tree)
-                return (0);
-        r_height = _binary_tree_height(tree->right);
-        l_height = _binary_tree_height(tree->left);
-        return (1 + ((r_height >= l_height) ? r_height: l_height));
+    size_t r_height = _binary_tree_height(tree->right);
+    size_t l_height = _binary_tree_height(tree->left);
+    return (1 + ((r_height >= l_height) ? r_height : l_height));
 }
 
 /**
  * _binary_tree_balance - local function.
  * @tree: A pointer to the root node of the tree to check.
  * 
- * Return: Data.
+ * Return: Balance factor of the tree.
  */
 int _binary_tree_balance(const binary_tree_t *tree)
 {
@@ -40,13 +38,13 @@ int _binary_tree_balance(const binary_tree_t *tree)
  */
 int sub_tree_perfect(const binary_tree_t *tree)
 {
-        if (tree && !tree->right && !tree->left)
-                return (1);
+    if (tree && !tree->right && !tree->left)
+        return (1);
 
-        if (tree && tree->right && tree->left)
-                return (1 && sub_tree_perfect(tree->left)
-                && sub_tree_perfect(tree->right));
-        return (0);
+    if (tree && tree->right && tree->left)
+        return (1 && sub_tree_perfect(tree->left) && sub_tree_perfect(tree->right));
+
+    return (0);
 }
 
 /**
